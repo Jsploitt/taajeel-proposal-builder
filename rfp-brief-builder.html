@@ -1,0 +1,1227 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proposal Brief Builder — Taajeel / Start Saudi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#0C1C24;
+  --ink-soft:#173038;
+  --paper:#F7F4EE;
+  --surface:#FFFFFF;
+  --line:#DFD8CB;
+  --line-soft:#ECE6DA;
+  --cream:#F4EDE1;
+  --brass:#A8801F;
+  --brass-tint:#F6EDD6;
+  --green:#1A6B4F;
+  --green-tint:#E4F0EA;
+  --clay:#A8481B;
+  --clay-tint:#FAEAE1;
+  --slate:#5C6B72;
+  --violet:#4A4A8A;
+  --violet-tint:#ECEBF7;
+  --r:10px;
+  --sans:"IBM Plex Sans","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+html[dir="rtl"]{ --sans:"IBM Plex Sans Arabic","IBM Plex Sans",system-ui,sans-serif; }
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- header ---------- */
+.topbar{background:var(--ink);color:var(--cream)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:16px}
+.mark{display:flex;align-items:baseline;gap:9px;min-width:0}
+.mark b{font-weight:600;font-size:17px;letter-spacing:-.01em}
+.mark span{font-size:12.5px;color:#9FB0B6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spacer{flex:1}
+.powered{font-size:11.5px;color:#8FA3AA;border-inline-start:1px solid #2C444C;padding-inline-start:14px}
+.langtoggle{display:flex;border:1px solid #2F4952;border-radius:999px;overflow:hidden}
+.langtoggle button{background:transparent;color:#9FB0B6;border:0;padding:5px 13px;cursor:pointer;font-size:12.5px;font-weight:500}
+.langtoggle button[aria-pressed="true"]{background:var(--cream);color:var(--ink)}
+
+/* ---------- steps ---------- */
+.steps{background:var(--ink-soft);color:#C8D4D8}
+.steps-in{max-width:1180px;margin:0 auto;padding:0 22px;display:flex;gap:26px;flex-wrap:wrap}
+.stepitem{display:flex;align-items:center;gap:9px;padding:11px 0;font-size:13px;color:#8FA3AA}
+.stepitem .n{width:21px;height:21px;border-radius:50%;border:1px solid #47626B;display:grid;place-items:center;font-size:11.5px;font-family:var(--mono)}
+.stepitem[data-state="current"]{color:var(--cream);font-weight:500}
+.stepitem[data-state="current"] .n{background:var(--brass);border-color:var(--brass);color:var(--ink);font-weight:500}
+.stepitem[data-state="done"]{color:#A9C4BA}
+.stepitem[data-state="done"] .n{background:transparent;border-color:var(--green);color:#7FC2A6}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:30px 22px 70px}
+.lede{max-width:64ch;margin:0 0 24px}
+.lede h1{font-size:25px;line-height:1.2;letter-spacing:-.015em;margin:0 0 7px;font-weight:600}
+.lede p{margin:0;color:var(--slate)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card + .card{margin-top:14px}
+h2.sec{font-size:16px;margin:0 0 3px;font-weight:600}
+.sub{color:var(--slate);font-size:13.5px;margin:0 0 15px}
+
+label.f{display:block;margin-bottom:13px}
+label.f > span{display:block;font-size:13px;font-weight:500;margin-bottom:5px}
+label.f > span i{font-style:normal;color:var(--slate);font-weight:400}
+input[type=text],input[type=email],select,textarea{
+  width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:#FCFAF6;
+}
+textarea{resize:vertical;min-height:74px;line-height:1.5}
+input:hover,select:hover,textarea:hover{border-color:#C9BFAC}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+
+.suggested{border-color:var(--brass)!important;background:var(--brass-tint)!important}
+.suggested-note{font-size:12px;color:var(--brass);margin-top:4px;display:none}
+.suggested-note.on{display:block}
+
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--cream);padding:9px 17px;border-radius:7px;cursor:pointer;font-weight:500;font-size:14px}
+.btn:hover{background:#16313C}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{background:var(--cream)}
+.btn.brass{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn.brass:hover{background:#96711A}
+.btn.sm{padding:6px 12px;font-size:13px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* ---------- client search ---------- */
+.searchbox{position:relative}
+.hits{margin-top:14px;display:grid;gap:10px}
+.hit{border:1px solid var(--line);border-radius:9px;padding:13px 15px;display:flex;gap:14px;align-items:flex-start;background:#FCFAF6}
+.hit:hover{border-color:#C9BFAC}
+.hit .who{flex:1;min-width:0}
+.hit .nm{font-weight:600}
+.hit .nm-ar{font-size:13.5px;color:var(--slate)}
+.hit .meta{font-size:12.5px;color:var(--slate);margin-top:4px}
+.cid{font-family:var(--mono);font-size:12px;background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+.empty{border:1px dashed var(--line);border-radius:9px;padding:15px;color:var(--slate);font-size:13.5px;background:#FCFAF6}
+
+.selected{border:1px solid var(--green);background:var(--green-tint);border-radius:9px;padding:13px 15px;display:flex;gap:12px;align-items:flex-start}
+.selected .nm{font-weight:600}
+.selected .meta{font-size:12.5px;color:#3D5B4F;margin-top:3px}
+
+details.newclient{border:1px solid var(--line);border-radius:9px;margin-top:16px;background:#FCFAF6}
+details.newclient > summary{padding:12px 15px;cursor:pointer;font-weight:500;list-style:none}
+details.newclient > summary::-webkit-details-marker{display:none}
+details.newclient > summary::before{content:"+";font-family:var(--mono);margin-inline-end:8px;color:var(--brass)}
+details.newclient[open] > summary::before{content:"−"}
+.newclient-body{padding:4px 15px 15px;border-top:1px solid var(--line-soft)}
+
+/* ---------- evidence ---------- */
+.conf{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;padding:4px 10px;border-radius:999px;border:1px solid}
+.conf[data-l="observed"]{background:var(--green-tint);border-color:#B9D8C9;color:#14513C}
+.conf[data-l="possible"]{background:var(--brass-tint);border-color:#E3D2A6;color:#7A5E14}
+.conf[data-l="insufficient"]{background:var(--clay-tint);border-color:#EFCDBB;color:#8B3B16}
+.conf .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+.ledger{display:grid;gap:8px}
+.lrow{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#FCFAF6}
+.lrow .lhead{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.lrow .lname{font-weight:500;font-size:13.5px}
+.badge{font-size:11.5px;padding:2px 8px;border-radius:5px;border:1px solid;white-space:nowrap}
+.badge[data-s="reuse"]{background:var(--green-tint);border-color:#B9D8C9;color:#14513C}
+.badge[data-s="template"]{background:var(--violet-tint);border-color:#CFCDEC;color:#3C3C77}
+.badge[data-s="ai"]{background:var(--brass-tint);border-color:#E3D2A6;color:#7A5E14}
+.badge[data-s="human"]{background:var(--clay-tint);border-color:#EFCDBB;color:#8B3B16}
+.cite{font-family:var(--mono);font-size:11.5px;color:var(--slate);margin-top:5px;word-break:break-word}
+
+.asks{border:1px solid #EFCDBB;background:var(--clay-tint);border-radius:9px;padding:14px 16px}
+.asks h3{margin:0 0 8px;font-size:14px;font-weight:600;color:#8B3B16}
+.asks ol{margin:0;padding-inline-start:20px;font-size:13.5px;color:#7A3C1B}
+.asks li{margin-bottom:5px}
+
+/* ---------- prompt slab ---------- */
+.step3{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,1fr);gap:16px;align-items:start}
+@media(max-width:960px){.step3{grid-template-columns:1fr}}
+.slab{background:var(--ink);border-radius:var(--r);overflow:hidden;border:1px solid var(--ink)}
+.slab-head{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #22414A;flex-wrap:wrap}
+.slab-head .t{color:var(--cream);font-weight:500;font-size:14px}
+.slab-head .c{color:#7F949B;font-family:var(--mono);font-size:11.5px}
+.slab pre{
+  margin:0;padding:18px 20px;max-height:560px;overflow:auto;
+  font-family:var(--mono);font-size:12px;line-height:1.72;color:#D7E2E5;white-space:pre-wrap;word-break:break-word;
+}
+.slab pre::selection{background:var(--brass);color:#fff}
+.slab-foot{padding:12px 16px;border-top:1px solid #22414A;display:flex;gap:9px;flex-wrap:wrap}
+.btn.onink{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.btn.onink:hover{background:#fff}
+.btn.onink-ghost{background:transparent;border-color:#3A5660;color:#BDCCD1}
+.btn.onink-ghost:hover{background:#16313C}
+
+.opts{display:grid;gap:9px}
+.opt{display:flex;gap:9px;align-items:flex-start;font-size:13.5px}
+.opt input{margin-top:3px}
+
+.note{font-size:12.5px;color:var(--slate);margin-top:10px}
+.synthetic{display:inline-flex;gap:7px;align-items:center;font-size:12px;color:#7A5E14;background:var(--brass-tint);border:1px solid #E3D2A6;border-radius:6px;padding:3px 9px}
+.disclaimer{margin-top:22px;border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--slate);max-width:72ch}
+.toast{position:fixed;inset-block-end:22px;inset-inline-start:50%;transform:translateX(-50%);background:var(--ink);color:var(--cream);padding:10px 18px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .18s}
+html[dir="rtl"] .toast{transform:translateX(50%)}
+.toast.on{opacity:1}
+.hidden{display:none!important}
+</style>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="mark"><b data-i="brand"></b><span data-i="tagline"></span></div>
+    <div class="spacer"></div>
+    <div class="powered" data-i="powered"></div>
+    <div class="langtoggle">
+      <button id="btn-en" aria-pressed="true" onclick="setLang('en')">EN</button>
+      <button id="btn-ar" aria-pressed="false" onclick="setLang('ar')">ع</button>
+    </div>
+  </div>
+</div>
+
+<div class="steps">
+  <div class="steps-in" id="stepbar"></div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ STEP 1 ============ -->
+  <section id="s1">
+    <div class="lede">
+      <h1 data-i="s1h"></h1>
+      <p data-i="s1p"></p>
+    </div>
+
+    <div class="card">
+      <h2 class="sec" data-i="findClient"></h2>
+      <p class="sub" data-i="findClientSub"></p>
+      <div class="searchbox">
+        <input type="text" id="q" oninput="renderHits()" autocomplete="off">
+      </div>
+      <div id="hits" class="hits"></div>
+
+      <details class="newclient" id="newclient">
+        <summary data-i="newClient"></summary>
+        <div class="newclient-body">
+          <div class="grid2">
+            <label class="f"><span data-i="nameEn"></span><input type="text" id="n-en"></label>
+            <label class="f"><span data-i="nameAr"></span><input type="text" id="n-ar" dir="rtl"></label>
+          </div>
+          <div class="grid2">
+            <label class="f"><span data-i="clientType"></span>
+              <select id="n-ctype"><option value="Company" data-i="company"></option><option value="Investor" data-i="investor"></option></select>
+            </label>
+            <label class="f"><span data-i="entityType"></span>
+              <select id="n-etype"><option value="Saudi" data-i="saudi"></option><option value="Gulf" data-i="gulf"></option><option value="Foreign" data-i="foreign"></option></select>
+              <div class="suggested-note" id="note-etype" data-i="suggestedNote"></div>
+            </label>
+          </div>
+          <div class="grid3">
+            <label class="f"><span data-i="contactName"></span><input type="text" id="n-cname"></label>
+            <label class="f"><span data-i="contactEmail"></span><input type="email" id="n-email">
+              <div class="suggested-note" id="note-email" data-i="suggestedNote"></div>
+            </label>
+            <label class="f"><span data-i="contactPhone"></span><input type="text" id="n-phone"></label>
+          </div>
+          <div class="grid2">
+            <label class="f"><span data-i="cr"></span><input type="text" id="n-cr">
+              <div class="suggested-note" id="note-cr" data-i="suggestedNote"></div>
+            </label>
+            <label class="f"><span data-i="nun"></span><input type="text" id="n-nun">
+              <div class="suggested-note" id="note-nun" data-i="suggestedNote"></div>
+            </label>
+          </div>
+          <label class="f"><span data-i="team"></span><textarea id="n-team"></textarea></label>
+
+          <div class="row">
+            <button class="btn brass sm" id="researchBtn" onclick="research()" data-i="research"></button>
+            <button class="btn sm" onclick="createClient()" data-i="createBtn"></button>
+            <span class="note" id="researchMsg" style="margin-top:0"></span>
+          </div>
+          <p class="note" data-i="researchRule"></p>
+        </div>
+      </details>
+    </div>
+
+    <p class="note"><span class="synthetic" data-i="syntheticBadge"></span></p>
+  </section>
+
+  <!-- ============ STEP 2 ============ -->
+  <section id="s2" class="hidden">
+    <div class="lede">
+      <h1 data-i="s2h"></h1>
+      <p data-i="s2p"></p>
+    </div>
+
+    <div class="card">
+      <div id="chosen"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="sec" data-i="service"></h2>
+      <p class="sub" data-i="serviceSub"></p>
+      <select id="svc" onchange="onSvc()"></select>
+      <div id="svcEvidence" style="margin-top:12px"></div>
+      <label class="f hidden" id="otherWrap" style="margin-top:14px"><span data-i="otherName"></span><input type="text" id="svcOther" oninput="onSvc()"></label>
+
+      <label class="f" style="margin-top:16px"><span data-i="task"></span><textarea id="task" placeholder=""></textarea></label>
+
+      <div class="grid2">
+        <label class="f"><span data-i="deckLang"></span>
+          <select id="deckLang"><option value="English" data-i="dlEn"></option><option value="Arabic" data-i="dlAr"></option><option value="Bilingual" data-i="dlBoth"></option></select>
+        </label>
+        <label class="f"><span data-i="signDate"></span><input type="text" id="signDate" placeholder="2026-09-15"></label>
+      </div>
+
+      <div class="row">
+        <button class="btn ghost sm" onclick="go(1)" data-i="back"></button>
+        <button class="btn" onclick="buildStep3()" data-i="assemble"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 3 ============ -->
+  <section id="s3" class="hidden">
+    <div class="lede">
+      <h1 data-i="s3h"></h1>
+      <p data-i="s3p"></p>
+    </div>
+
+    <div class="step3">
+      <div>
+        <div class="slab">
+          <div class="slab-head">
+            <span class="t" data-i="promptTitle"></span>
+            <span class="spacer"></span>
+            <span class="c" id="promptStats"></span>
+          </div>
+          <pre id="promptOut"></pre>
+          <div class="slab-foot">
+            <button class="btn onink sm" onclick="copyPrompt()" data-i="copy"></button>
+            <button class="btn onink-ghost sm" onclick="downloadPrompt()" data-i="download"></button>
+            <button class="btn onink-ghost sm" onclick="renderPrompt()" data-i="regen"></button>
+            <span class="spacer"></span>
+            <button class="btn onink-ghost sm" onclick="go(2)" data-i="changeSvc"></button>
+            <button class="btn onink-ghost sm" onclick="go(1)" data-i="changeClient"></button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h2 class="sec" data-i="optsTitle"></h2>
+          <p class="sub" data-i="optsSub"></p>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" id="o-design" checked onchange="renderPrompt()"><span data-i="oDesign"></span></label>
+            <label class="opt"><input type="checkbox" id="o-eng" checked onchange="renderPrompt()"><span data-i="oEng"></span></label>
+            <label class="opt"><input type="checkbox" id="o-cite" checked onchange="renderPrompt()"><span data-i="oCite"></span></label>
+            <label class="opt"><input type="checkbox" id="o-interview" checked onchange="renderPrompt()"><span data-i="oInterview"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2 class="sec" data-i="ledgerTitle"></h2>
+          <p class="sub" data-i="ledgerSub"></p>
+          <div class="ledger" id="ledger"></div>
+          <p class="note" data-i="noTranslate"></p>
+        </div>
+        <div class="card">
+          <div class="asks">
+            <h3 data-i="asksTitle"></h3>
+            <ol id="asks"></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="disclaimer" data-i="disclaimer"></p>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   1. LANGUAGE
+   ========================================================= */
+const I18N = {
+en:{
+  brand:"Proposal Brief Builder", tagline:"Taajeel · Start Saudi",
+  powered:"Internal tool",
+  step1:"Client", step2:"Service and task", step3:"Brief",
+  s1h:"Who is the proposal for?",
+  s1p:"Search the client registry by name or client ID. Nothing is selected for you — confirm the match yourself.",
+  findClient:"Search the registry", findClientSub:"Matches on client ID, or part of the name in Arabic or English.",
+  useClient:"Use this client",
+  noHits:"No client matches that search. Create the client below, or keep typing.",
+  startTyping:"Start typing to search. Six clients are loaded in this demo registry.",
+  newClient:"Create a new client",
+  nameEn:"Name (English) <i>— at least one name required</i>", nameAr:"Name (Arabic)",
+  clientType:"Client type", company:"Company", investor:"Investor",
+  entityType:"Entity type", saudi:"Saudi", gulf:"Gulf", foreign:"Foreign",
+  contactName:"Contact name", contactEmail:"Contact email", contactPhone:"Contact phone",
+  cr:"CR number", nun:"National Unified Number", team:"Team members (one per line)",
+  research:"Research and fill in missing fields", createBtn:"Create client",
+  researchRule:"Research results are suggestions only. Nothing is saved until you review and submit. A field left blank means unconfirmed, never confirmed empty.",
+  suggestedNote:"Suggested from web research — confirm before saving.",
+  researching:"Searching…",
+  researchFail:"Could not reach the research service.",
+  googleLink:"Search Google instead",
+  created:"Client created, folder provisioned",
+  syntheticBadge:"Synthetic demo data — no real client records are loaded",
+
+  s2h:"What are we proposing?",
+  s2p:"The service list comes from proposals the knowledge base has actually seen. Evidence strength is shown before anything is assembled.",
+  service:"Service", serviceSub:"Pick a known service, or add one the knowledge base has not seen.",
+  otherName:"Service name",
+  other:"Other — not in the knowledge base",
+  task:"What does the client need?",
+  deckLang:"Deck language", dlEn:"English", dlAr:"Arabic", dlBoth:"Bilingual",
+  signDate:"Proposal date (used for the reference number)",
+  back:"Back", assemble:"Assemble the brief",
+  evidenceFor:"Evidence for this service",
+  priorCount:"based on {n} prior proposal(s)",
+  observed:"Observed pattern", possible:"Possible pattern", insufficient:"Insufficient evidence",
+  noEvidence:"No prior proposals for this service. The brief will tell the agent to ask you for everything rather than infer it.",
+  chosenClient:"Proposal for",
+  change:"Change",
+
+  s3h:"The brief is ready to hand over",
+  s3p:"Copy this into any AI agent. It carries the client record, the evidence, the design system, and instructions to interview you about every gap before it builds anything.",
+  promptTitle:"Build brief", copy:"Copy brief", download:"Download .md", regen:"Rebuild",
+  changeSvc:"Change service", changeClient:"Change client",
+  copied:"Brief copied",
+  optsTitle:"What goes in the brief", optsSub:"Trim the brief if the receiving agent already has some of this.",
+  oDesign:"Design system — colours, type, slide grid, layout rules",
+  oEng:"PowerPoint build notes — python-pptx pitfalls that corrupt files silently",
+  oCite:"Citations — which past proposal and slide each reused passage came from",
+  oInterview:"Interview rules — the agent must ask before it assumes",
+  ledgerTitle:"Where each section comes from", ledgerSub:"Same evidence model as the old generator, applied to the brief instead of a draft.",
+  reuse:"Reused", template:"Template", ai:"AI drafted", human:"Needs you",
+  noTranslate:"Text lifted from past proposals stays in its original language, in both interface languages. Translating it would misrepresent the evidence.",
+  asksTitle:"The agent will ask you about", 
+  words:"{w} words · {c} characters",
+  disclaimer:"Not built yet, and not simulated here: the approval workflow, real price entry, and emailing the proposal to the client. The brief hands the deck back to you for those steps.",
+  promptLangNote:"The brief itself is written in English for agent compatibility. The deck language you picked is instructed separately inside it."
+},
+ar:{
+  brand:"مُنشئ ملخص العروض", tagline:"تأجيل · ابدأ السعودية",
+  powered:"أداة داخلية",
+  step1:"العميل", step2:"الخدمة والمهمة", step3:"الملخص",
+  s1h:"لمن هذا العرض؟",
+  s1p:"ابحث في سجل العملاء بالاسم أو برقم العميل. لا يتم اختيار أي عميل تلقائياً — أكّد المطابقة بنفسك.",
+  findClient:"البحث في السجل", findClientSub:"يطابق رقم العميل أو جزءاً من الاسم بالعربية أو الإنجليزية.",
+  useClient:"اختيار هذا العميل",
+  noHits:"لا يوجد عميل مطابق. أنشئ العميل أدناه أو تابع الكتابة.",
+  startTyping:"ابدأ الكتابة للبحث. يحتوي السجل التجريبي على ستة عملاء.",
+  newClient:"إنشاء عميل جديد",
+  nameEn:"الاسم (إنجليزي) <i>— يُطلب اسم واحد على الأقل</i>", nameAr:"الاسم (عربي)",
+  clientType:"نوع العميل", company:"شركة", investor:"مستثمر",
+  entityType:"نوع الكيان", saudi:"سعودي", gulf:"خليجي", foreign:"أجنبي",
+  contactName:"اسم جهة الاتصال", contactEmail:"البريد الإلكتروني", contactPhone:"رقم الهاتف",
+  cr:"رقم السجل التجاري", nun:"الرقم الوطني الموحد", team:"أعضاء الفريق (سطر لكل عضو)",
+  research:"البحث وتعبئة الحقول الناقصة", createBtn:"إنشاء العميل",
+  researchRule:"نتائج البحث اقتراحات فقط. لا يُحفظ شيء قبل مراجعتك وإرسالك. الحقل الفارغ يعني غير مؤكد، ولا يعني مؤكد الفراغ.",
+  suggestedNote:"مقترح من البحث — يرجى التأكيد قبل الحفظ.",
+  researching:"جارٍ البحث…",
+  researchFail:"تعذّر الوصول إلى خدمة البحث.",
+  googleLink:"ابحث في جوجل بدلاً من ذلك",
+  created:"تم إنشاء العميل وتجهيز مجلده",
+  syntheticBadge:"بيانات تجريبية — لا توجد سجلات عملاء حقيقية",
+
+  s2h:"ما الذي نقدّمه؟",
+  s2p:"قائمة الخدمات مبنية على عروض شاهدتها قاعدة المعرفة فعلياً. تُعرض قوة الأدلة قبل تجميع أي شيء.",
+  service:"الخدمة", serviceSub:"اختر خدمة معروفة، أو أضف خدمة لم ترها قاعدة المعرفة.",
+  otherName:"اسم الخدمة",
+  other:"أخرى — غير موجودة في قاعدة المعرفة",
+  task:"ما الذي يحتاجه العميل؟",
+  deckLang:"لغة العرض", dlEn:"الإنجليزية", dlAr:"العربية", dlBoth:"ثنائي اللغة",
+  signDate:"تاريخ العرض (يُستخدم في الرقم المرجعي)",
+  back:"رجوع", assemble:"تجميع الملخص",
+  evidenceFor:"الأدلة المتوفرة لهذه الخدمة",
+  priorCount:"بناءً على {n} عرض سابق",
+  observed:"نمط ملاحَظ", possible:"نمط محتمل", insufficient:"أدلة غير كافية",
+  noEvidence:"لا توجد عروض سابقة لهذه الخدمة. سيطلب الملخص من الوكيل أن يسألك عن كل شيء بدلاً من الافتراض.",
+  chosenClient:"العرض مُعد لـ",
+  change:"تغيير",
+
+  s3h:"الملخص جاهز للتسليم",
+  s3p:"انسخه إلى أي وكيل ذكاء اصطناعي. يحمل بيانات العميل والأدلة ونظام التصميم وتعليمات بسؤالك عن كل نقص قبل بناء أي شيء.",
+  promptTitle:"ملخص البناء", copy:"نسخ الملخص", download:"تنزيل .md", regen:"إعادة التجميع",
+  changeSvc:"تغيير الخدمة", changeClient:"تغيير العميل",
+  copied:"تم نسخ الملخص",
+  optsTitle:"محتويات الملخص", optsSub:"اختصر الملخص إذا كان الوكيل يعرف بعض هذه التفاصيل مسبقاً.",
+  oDesign:"نظام التصميم — الألوان والخطوط وشبكة الشرائح وقواعد التخطيط",
+  oEng:"ملاحظات بناء PowerPoint — مزالق python-pptx التي تُتلف الملف بصمت",
+  oCite:"الاستشهادات — أي عرض سابق وأي شريحة جاء منها كل نص معاد استخدامه",
+  oInterview:"قواعد المقابلة — على الوكيل أن يسأل قبل أن يفترض",
+  ledgerTitle:"مصدر كل قسم", ledgerSub:"نفس نموذج الأدلة السابق، مطبّقاً على الملخص بدل المسودة.",
+  reuse:"معاد استخدامه", template:"قالب", ai:"صياغة آلية", human:"يحتاجك",
+  noTranslate:"النصوص المأخوذة من عروض سابقة تبقى بلغتها الأصلية في كلتا اللغتين. ترجمتها تُحرّف الأدلة.",
+  asksTitle:"سيسألك الوكيل عن",
+  words:"{w} كلمة · {c} حرف",
+  disclaimer:"غير مبني بعد، وغير محاكى هنا: مسار الاعتماد، وإدخال الأسعار الفعلية، وإرسال العرض بالبريد للعميل. يعيد الملخص العرض إليك لإتمام هذه الخطوات.",
+  promptLangNote:"الملخص نفسه مكتوب بالإنجليزية لتوافق الوكلاء. لغة العرض التي اخترتها مذكورة بوضوح داخله."
+}
+};
+
+let LANG = "en";
+const t = k => (I18N[LANG][k] ?? I18N.en[k] ?? k);
+
+function setLang(l){
+  LANG = l;
+  document.documentElement.lang = l;
+  document.documentElement.dir = (l === "ar") ? "rtl" : "ltr";
+  btnEn.setAttribute("aria-pressed", l === "en");
+  btnAr.setAttribute("aria-pressed", l === "ar");
+  paint();
+}
+const btnEn = document.getElementById("btn-en");
+const btnAr = document.getElementById("btn-ar");
+
+function paint(){
+  document.querySelectorAll("[data-i]").forEach(el=>{
+    el.innerHTML = t(el.getAttribute("data-i"));
+  });
+  document.getElementById("q").placeholder = LANG==="ar" ? "مثال: 1042 أو هافنستون" : "e.g. 1042, or Havenstone";
+  document.getElementById("task").placeholder = LANG==="ar"
+    ? "بضع جمل بلغة العميل نفسها."
+    : "A few sentences, in the client's own words where you have them.";
+  renderSteps(); renderHits(); renderSvcOptions(); renderChosen();
+  if(state.step===3) renderPrompt();
+}
+
+/* =========================================================
+   2. DEMO DATA  (synthetic — no real client records)
+   ========================================================= */
+const CLIENTS = [
+  {id:"1042", en:"Havenstone Capital Partners", ar:"هافنستون كابيتال بارتنرز", ctype:"Investor", etype:"Foreign",
+   cname:"Laura Whitfield", email:"l.whitfield@havenstone.example", phone:"+44 20 7946 0102", cr:"", nun:"7001234567",
+   team:"Laura Whitfield\nOmar Al-Dossary"},
+  {id:"1043", en:"Northwind Industrial Trading", ar:"شركة شمال الريح للتجارة الصناعية", ctype:"Company", etype:"Saudi",
+   cname:"Faisal Al-Harbi", email:"f.harbi@northwind.example", phone:"+966 50 112 4477", cr:"1010882341", nun:"7009988776",
+   team:"Faisal Al-Harbi"},
+  {id:"1051", en:"Beit Al Rayan Holding", ar:"بيت الريان القابضة", ctype:"Company", etype:"Gulf",
+   cname:"Noura Al-Mansouri", email:"noura@bahr.example", phone:"+971 4 555 0133", cr:"", nun:"",
+   team:"Noura Al-Mansouri\nKhalid Sami"},
+  {id:"1067", en:"Cedarline Logistics", ar:"سيدارلاين للخدمات اللوجستية", ctype:"Company", etype:"Foreign",
+   cname:"Marc Oliveira", email:"m.oliveira@cedarline.example", phone:"+351 21 000 4412", cr:"", nun:"7005512340",
+   team:"Marc Oliveira"},
+  {id:"1078", en:"Al Qafilah Ventures", ar:"القافلة فينتشرز", ctype:"Investor", etype:"Saudi",
+   cname:"Reem Al-Otaibi", email:"reem@qafilah.example", phone:"+966 55 700 2210", cr:"1010774512", nun:"7002211009",
+   team:"Reem Al-Otaibi\nTariq Nasser\nHessa Al-Amri"},
+  {id:"1084", en:"Meridian Health Group", ar:"مجموعة ميريديان الصحية", ctype:"Company", etype:"Foreign",
+   cname:"Dr. Anita Raghavan", email:"a.raghavan@meridianhg.example", phone:"+1 415 555 0178", cr:"", nun:"",
+   team:"Dr. Anita Raghavan\nSami Kurdi"}
+];
+
+// Section skeleton, in deck order.
+const SECTIONS = [
+  {k:"cover",        en:"Cover",                        ar:"الغلاف"},
+  {k:"cover_letter", en:"Cover letter",                 ar:"خطاب التقديم"},
+  {k:"about",        en:"About Taajeel",                ar:"عن تأجيل"},
+  {k:"understanding",en:"Understanding of requirement",  ar:"فهم المتطلب"},
+  {k:"scope",        en:"Scope of work",                ar:"نطاق العمل"},
+  {k:"timeframe",    en:"Time frame",                   ar:"الإطار الزمني"},
+  {k:"fees",         en:"Fees",                         ar:"الأتعاب"},
+  {k:"terms",        en:"Terms and conditions",         ar:"الشروط والأحكام"},
+  {k:"next",         en:"Next steps and contacts",      ar:"الخطوات التالية وجهات الاتصال"}
+];
+
+const SERVICES = [
+{ id:"misa", n:7, conf:"observed",
+  en:"Company formation under a MISA investment licence",
+  ar:"تأسيس شركة برخصة استثمار من وزارة الاستثمار",
+  sections:{
+    cover:{s:"template"},
+    cover_letter:{s:"reuse", cite:"P3_Northwind @ slides 2-3 · confidence 0.94 · seen 6x"},
+    about:{s:"reuse", cite:"P1_Havenstone @ slides 28-32 · confidence 0.95 · seen 7x"},
+    understanding:{s:"ai"},
+    scope:{s:"reuse", cite:"P3_Northwind @ slides 9-13 · confidence 0.88 · seen 5x"},
+    timeframe:{s:"reuse", cite:"P5_Qafilah @ slide 15 · confidence 0.81 · seen 4x"},
+    fees:{s:"human"},
+    terms:{s:"reuse", cite:"P1_Havenstone @ slides 34-36 · confidence 0.97 · seen 7x"},
+    next:{s:"template"}
+  },
+  core:["MISA investment licence application and follow-up",
+        "Trade name reservation with the Ministry of Commerce",
+        "Drafting the articles of association",
+        "Notarisation of the articles",
+        "Commercial registration issuance",
+        "National address registration",
+        "Chamber of Commerce membership"],
+  conditional:["Capital deposit certificate coordination",
+        "Municipality (Baladi) licence",
+        "General manager visa sponsorship",
+        "Activity-specific regulator approval"],
+  optional:["Corporate bank account introduction",
+        "Monthly PRO retainer after incorporation",
+        "Certified translation and attestation of corporate documents",
+        "Trademark registration",
+        "Registered office address for the first year"] },
+
+{ id:"branch", n:4, conf:"observed",
+  en:"Foreign company branch registration",
+  ar:"تسجيل فرع لشركة أجنبية",
+  sections:{
+    cover:{s:"template"},
+    cover_letter:{s:"reuse", cite:"P7_Cedarline @ slides 2-3 · confidence 0.90 · seen 4x"},
+    about:{s:"reuse", cite:"P1_Havenstone @ slides 28-32 · confidence 0.95 · seen 7x"},
+    understanding:{s:"ai"},
+    scope:{s:"reuse", cite:"P7_Cedarline @ slides 8-11 · confidence 0.79 · seen 3x"},
+    timeframe:{s:"human"},
+    fees:{s:"human"},
+    terms:{s:"reuse", cite:"P1_Havenstone @ slides 34-36 · confidence 0.97 · seen 7x"},
+    next:{s:"template"}
+  },
+  core:["MISA branch licence application",
+        "Parent company document attestation review",
+        "Commercial registration for the branch",
+        "National address registration"],
+  conditional:["Bank guarantee arrangement",
+        "Branch manager appointment and visa"],
+  optional:["Government portal activation",
+        "Ongoing compliance retainer"] },
+
+{ id:"gov", n:5, conf:"observed",
+  en:"Government portal activation (ZATCA, GOSI, Qiwa, Muqeem)",
+  ar:"تفعيل الحسابات الحكومية (الزكاة والضريبة، التأمينات، قوى، مقيم)",
+  sections:{
+    cover:{s:"template"},
+    cover_letter:{s:"reuse", cite:"P4_BeitAlRayan @ slide 2 · confidence 0.86 · seen 5x"},
+    about:{s:"reuse", cite:"P1_Havenstone @ slides 28-32 · confidence 0.95 · seen 7x"},
+    understanding:{s:"ai"},
+    scope:{s:"reuse", cite:"P4_BeitAlRayan @ slides 6-8 · confidence 0.91 · seen 5x"},
+    timeframe:{s:"reuse", cite:"P4_BeitAlRayan @ slide 9 · confidence 0.77 · seen 3x"},
+    fees:{s:"human"},
+    terms:{s:"reuse", cite:"P1_Havenstone @ slides 34-36 · confidence 0.97 · seen 7x"},
+    next:{s:"template"}
+  },
+  core:["ZATCA taxpayer registration",
+        "GOSI establishment file",
+        "Qiwa labour portal activation",
+        "Muqeem activation",
+        "Absher Business enrolment"],
+  conditional:["VAT registration where turnover thresholds apply",
+        "Saudisation (Nitaqat) band review"],
+  optional:["Payroll file setup",
+        "Quarterly compliance check-in"] },
+
+{ id:"gmvisa", n:3, conf:"possible",
+  en:"General manager visa and iqama",
+  ar:"تأشيرة وإقامة المدير العام",
+  sections:{
+    cover:{s:"template"},
+    cover_letter:{s:"reuse", cite:"P2_Meridian @ slide 2 · confidence 0.72 · seen 3x"},
+    about:{s:"reuse", cite:"P1_Havenstone @ slides 28-32 · confidence 0.95 · seen 7x"},
+    understanding:{s:"ai"},
+    scope:{s:"ai"},
+    timeframe:{s:"human"},
+    fees:{s:"human"},
+    terms:{s:"reuse", cite:"P1_Havenstone @ slides 34-36 · confidence 0.97 · seen 7x"},
+    next:{s:"template"}
+  },
+  core:["Block visa application",
+        "Visa issuance follow-up at the embassy",
+        "Iqama issuance after arrival"],
+  conditional:["Medical examination coordination",
+        "Family dependant visas"],
+  optional:["Iqama renewal retainer",
+        "Exit and re-entry handling"] },
+
+{ id:"bank", n:2, conf:"possible",
+  en:"Corporate bank account opening support",
+  ar:"دعم فتح الحساب البنكي للشركة",
+  sections:{
+    cover:{s:"template"},
+    cover_letter:{s:"template"},
+    about:{s:"reuse", cite:"P1_Havenstone @ slides 28-32 · confidence 0.95 · seen 7x"},
+    understanding:{s:"ai"},
+    scope:{s:"ai"},
+    timeframe:{s:"human"},
+    fees:{s:"human"},
+    terms:{s:"reuse", cite:"P1_Havenstone @ slides 34-36 · confidence 0.97 · seen 7x"},
+    next:{s:"template"}
+  },
+  core:["Bank selection shortlist",
+        "Document pack preparation",
+        "Branch appointment scheduling"],
+  conditional:["In-person signatory attendance",
+        "Compliance questionnaire support"],
+  optional:["Online banking activation walkthrough"] },
+
+{ id:"feasibility", n:1, conf:"insufficient",
+  en:"Market entry feasibility study",
+  ar:"دراسة جدوى دخول السوق",
+  sections:{
+    cover:{s:"template"},
+    cover_letter:{s:"template"},
+    about:{s:"reuse", cite:"P1_Havenstone @ slides 28-32 · confidence 0.95 · seen 7x"},
+    understanding:{s:"ai"},
+    scope:{s:"human"},
+    timeframe:{s:"human"},
+    fees:{s:"human"},
+    terms:{s:"reuse", cite:"P1_Havenstone @ slides 34-36 · confidence 0.97 · seen 7x"},
+    next:{s:"template"}
+  },
+  core:[], conditional:[], optional:[] }
+];
+
+const BLANK_SERVICE = {
+  id:"other", n:0, conf:"insufficient", en:"", ar:"",
+  sections:Object.fromEntries(SECTIONS.map(s=>[s.k,
+    ["cover","next"].includes(s.k) ? {s:"template"} :
+    (s.k==="about" ? {s:"reuse", cite:"P1_Havenstone @ slides 28-32 · confidence 0.95 · seen 7x"} :
+    (s.k==="understanding" ? {s:"ai"} : {s:"human"}))])),
+  core:[], conditional:[], optional:[]
+};
+
+/* =========================================================
+   3. STATE + NAV
+   ========================================================= */
+const state = { step:1, client:null, service:null, otherName:"" };
+
+function renderSteps(){
+  const bar = document.getElementById("stepbar");
+  bar.innerHTML = "";
+  [1,2,3].forEach(n=>{
+    const st = state.step===n ? "current" : (state.step>n ? "done" : "todo");
+    const d = document.createElement("div");
+    d.className="stepitem"; d.dataset.state=st;
+    d.innerHTML = '<span class="n">'+(st==="done"?"✓":n)+'</span><span>'+t("step"+n)+'</span>';
+    bar.appendChild(d);
+  });
+}
+function go(n){
+  state.step = n;
+  ["s1","s2","s3"].forEach((id,i)=> document.getElementById(id).classList.toggle("hidden", i+1!==n));
+  renderSteps();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function toast(msg){
+  const el = document.getElementById("toast");
+  el.textContent = msg; el.classList.add("on");
+  setTimeout(()=>el.classList.remove("on"), 1900);
+}
+
+/* =========================================================
+   4. STEP 1 — client search, research, create
+   ========================================================= */
+function renderHits(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const box = document.getElementById("hits");
+  const nc = document.getElementById("newclient");
+  box.innerHTML = "";
+
+  if(!q){
+    box.innerHTML = '<div class="empty">'+t("startTyping")+'</div>';
+    return;
+  }
+  const hits = CLIENTS.filter(c =>
+    c.id.includes(q) || c.en.toLowerCase().includes(q) || c.ar.includes(document.getElementById("q").value.trim())
+  );
+  if(!hits.length){
+    box.innerHTML = '<div class="empty">'+t("noHits")+'</div>';
+    nc.open = true;              // auto-expand when the search comes up empty
+    return;
+  }
+  hits.forEach(c=>{
+    const el = document.createElement("div");
+    el.className="hit";
+    el.innerHTML =
+      '<div class="who">'+
+        '<div class="nm">'+c.en+'</div>'+
+        '<div class="nm-ar" dir="rtl">'+c.ar+'</div>'+
+        '<div class="meta"><span class="cid">'+c.id+'</span> · '+localType(c.ctype)+' · '+localEntity(c.etype)+' · '+c.email+'</div>'+
+      '</div>';
+    const b = document.createElement("button");
+    b.className="btn sm"; b.textContent = t("useClient");
+    b.onclick = ()=>{ state.client = c; go(2); renderChosen(); };
+    el.appendChild(b);
+    box.appendChild(el);
+  });
+}
+const localType = v => v==="Company" ? t("company") : t("investor");
+const localEntity = v => v==="Saudi" ? t("saudi") : v==="Gulf" ? t("gulf") : t("foreign");
+
+function renderChosen(){
+  const c = state.client;
+  const box = document.getElementById("chosen");
+  if(!c || !box) return;
+  box.innerHTML =
+    '<div class="selected"><div style="flex:1">'+
+      '<div class="nm">'+(c.en || c.ar)+' <span class="cid">'+c.id+'</span></div>'+
+      '<div class="meta">'+localType(c.ctype)+' · '+localEntity(c.etype)+' · '+(c.email||"—")+'</div>'+
+      '<div class="meta">'+t("chosenClient")+': '+(c.ar||c.en)+'</div>'+
+    '</div></div>';
+}
+
+/* --- research & fill: live web search, graceful degradation --- */
+async function research(){
+  const nameEn = document.getElementById("n-en").value.trim();
+  const nameAr = document.getElementById("n-ar").value.trim();
+  const name = nameEn || nameAr;
+  const msg = document.getElementById("researchMsg");
+  const btn = document.getElementById("researchBtn");
+  if(!name){ msg.textContent = LANG==="ar" ? "أدخل اسم العميل أولاً." : "Enter a client name first."; return; }
+
+  btn.disabled = true; msg.textContent = t("researching");
+
+  const sys = "You research companies for a Saudi corporate-services firm. Use web search. "+
+    "Return ONLY a JSON object, no prose, no markdown fences. Allowed keys: entityType (exactly one of Saudi, Gulf, Foreign), "+
+    "contactEmail, contactPhone, crNumber, nationalUnifiedNumber. "+
+    "OMIT any key you cannot confirm from a source. Never guess. An omitted key means unconfirmed; "+
+    "it does not mean the value is empty. Prefer omission over a plausible-looking answer.";
+
+  try{
+    const res = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        model:"claude-sonnet-4-6", max_tokens:1000,
+        system: sys,
+        messages:[{role:"user", content:"Company: "+name+". Country of interest: Saudi Arabia. Find registration and contact details."}],
+        tools:[{type:"web_search_20250305", name:"web_search"}]
+      })
+    });
+    if(!res.ok) throw new Error("http "+res.status);
+    const data = await res.json();
+    const text = (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
+    const clean = text.replace(/```json|```/g,"").trim();
+    const start = clean.indexOf("{"), end = clean.lastIndexOf("}");
+    const parsed = JSON.parse(clean.slice(start, end+1));
+    applySuggestion(parsed);
+    msg.textContent = "";
+  }catch(err){
+    msg.innerHTML = t("researchFail")+' <a href="https://www.google.com/search?q='+encodeURIComponent(name+" Saudi Arabia commercial registration")+'" target="_blank" rel="noopener">'+t("googleLink")+'</a>';
+  }finally{
+    btn.disabled = false;
+  }
+}
+function applySuggestion(p){
+  const map = [
+    ["entityType","n-etype","note-etype"],
+    ["contactEmail","n-email","note-email"],
+    ["contactPhone","n-phone",null],
+    ["crNumber","n-cr","note-cr"],
+    ["nationalUnifiedNumber","n-nun","note-nun"]
+  ];
+  map.forEach(([key,fieldId,noteId])=>{
+    const v = p[key];
+    if(v===undefined || v===null || String(v).trim()==="") return;   // omitted = unconfirmed
+    const el = document.getElementById(fieldId);
+    el.value = String(v).trim();
+    el.classList.add("suggested");
+    if(noteId) document.getElementById(noteId).classList.add("on");
+  });
+}
+
+function createClient(){
+  const en = document.getElementById("n-en").value.trim();
+  const ar = document.getElementById("n-ar").value.trim();
+  if(!en && !ar){ toast(LANG==="ar" ? "يلزم اسم واحد على الأقل" : "At least one name is required"); return; }
+  const nextId = String(Math.max(...CLIENTS.map(c=>+c.id)) + 1);
+  const c = {
+    id: nextId, en: en || ar, ar: ar || en,
+    ctype: document.getElementById("n-ctype").value,
+    etype: document.getElementById("n-etype").value,
+    cname: document.getElementById("n-cname").value.trim(),
+    email: document.getElementById("n-email").value.trim(),
+    phone: document.getElementById("n-phone").value.trim(),
+    cr: document.getElementById("n-cr").value.trim(),
+    nun: document.getElementById("n-nun").value.trim(),
+    team: document.getElementById("n-team").value.trim(),
+    isNew:true
+  };
+  c.folder = c.id + "_" + (c.en||c.ar).replace(/[^A-Za-z0-9\u0600-\u06FF ]/g,"").replace(/\s+/g,"_");
+  CLIENTS.push(c);
+  state.client = c;
+  toast(t("created") + " · " + c.folder + "/");
+  go(2); renderChosen();
+}
+
+/* =========================================================
+   5. STEP 2 — service + evidence
+   ========================================================= */
+function renderSvcOptions(){
+  const sel = document.getElementById("svc");
+  const keep = sel.value;
+  sel.innerHTML = "";
+  const ph = new Option(LANG==="ar" ? "— اختر خدمة —" : "— pick a service —", "");
+  sel.add(ph);
+  SERVICES.forEach(s=> sel.add(new Option(LANG==="ar" ? s.ar : s.en, s.id)));
+  sel.add(new Option(t("other"), "other"));
+  sel.value = keep;
+  onSvc(true);
+}
+function currentService(){
+  const v = document.getElementById("svc").value;
+  if(!v) return null;
+  if(v==="other"){
+    const s = Object.assign({}, BLANK_SERVICE);
+    s.en = s.ar = document.getElementById("svcOther").value.trim() || (LANG==="ar"?"خدمة جديدة":"New service");
+    return s;
+  }
+  return SERVICES.find(s=>s.id===v) || null;
+}
+function onSvc(silent){
+  const v = document.getElementById("svc").value;
+  document.getElementById("otherWrap").classList.toggle("hidden", v!=="other");
+  const s = currentService();
+  const box = document.getElementById("svcEvidence");
+  if(!s){ box.innerHTML=""; return; }
+  if(s.n === 0){
+    box.innerHTML = '<div class="empty">'+t("noEvidence")+'</div>';
+    return;
+  }
+  box.innerHTML =
+    '<span class="conf" data-l="'+s.conf+'"><span class="dot"></span>'+t(s.conf)+'</span> '+
+    '<span class="note" style="margin:0 8px">'+t("priorCount").replace("{n}", s.n)+'</span>';
+}
+
+/* =========================================================
+   6. STEP 3 — ledger, open questions, the brief
+   ========================================================= */
+function buildStep3(){
+  const s = currentService();
+  if(!s){ toast(LANG==="ar" ? "اختر خدمة" : "Pick a service"); return; }
+  state.service = s;
+  go(3);
+  renderPrompt();
+}
+
+function refNumber(){
+  const raw = (document.getElementById("signDate").value || "").trim();
+  const d = /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : new Date().toISOString().slice(0,10);
+  return d.replace(/-/g,".") + "." + (state.client ? state.client.id : "0000");
+}
+
+function openQuestions(){
+  const c = state.client, s = state.service, qs = [];
+  const ar = LANG==="ar";
+  qs.push(ar ? "الأتعاب — لا يُشتق أي رقم من العروض السابقة. مطلوب المبلغ والعملة وجدول الدفعات."
+             : "Fees — no figure is ever inferred from past proposals. Amount, currency and payment schedule are needed.");
+  if(s.sections.timeframe.s === "human")
+    qs.push(ar ? "الإطار الزمني — لا توجد أدلة كافية لهذه الخدمة، والوعد بمدة غير مؤكدة غير مقبول."
+               : "Time frame — not enough evidence for this service, and an unbacked duration promise is not acceptable.");
+  if(s.conditional.length)
+    qs.push(ar ? ("بنود نطاق العمل المشروطة ("+s.conditional.length+") — كل بند يحتاج قراراً بالتضمين أو الاستبعاد.")
+               : ("Conditional scope items ("+s.conditional.length+") — each needs an in-or-out decision."));
+  if(!s.core.length)
+    qs.push(ar ? "نطاق العمل بالكامل — لا توجد بنود مؤكدة لهذه الخدمة."
+               : "The entire scope of work — no confirmed items exist for this service.");
+  if(c && !c.cr) qs.push(ar ? "رقم السجل التجاري — غير مؤكد في السجل." : "CR number — unconfirmed in the registry.");
+  if(c && !c.nun) qs.push(ar ? "الرقم الوطني الموحد — غير مؤكد في السجل." : "National Unified Number — unconfirmed in the registry.");
+  if(c && !c.email) qs.push(ar ? "بريد جهة الاتصال — مفقود." : "Contact email — missing.");
+  qs.push(ar ? "شعار العميل — الشعار المضمّن في قالب الغلاف يخص عميلاً سابقاً ويجب استبداله يدوياً."
+             : "The client logo — the cover template still has a previous client's logo baked into the image.");
+  return qs;
+}
+
+function renderLedger(){
+  const s = state.service, box = document.getElementById("ledger");
+  const withCites = document.getElementById("o-cite").checked;
+  box.innerHTML = "";
+  SECTIONS.forEach(sec=>{
+    const info = s.sections[sec.k] || {s:"human"};
+    const el = document.createElement("div");
+    el.className = "lrow";
+    let html = '<div class="lhead"><span class="lname">'+(LANG==="ar"?sec.ar:sec.en)+'</span>'+
+               '<span class="badge" data-s="'+info.s+'">'+t(info.s)+'</span></div>';
+    if(info.cite && withCites) html += '<div class="cite">'+info.cite+'</div>';
+    el.innerHTML = html;
+    box.appendChild(el);
+  });
+  const asks = document.getElementById("asks");
+  asks.innerHTML = "";
+  openQuestions().forEach(q=>{
+    const li = document.createElement("li"); li.textContent = q; asks.appendChild(li);
+  });
+}
+
+function list(arr, fallback){
+  if(!arr.length) return "  (none confirmed — ask the user)";
+  return arr.map(x=>"  - "+x).join("\n");
+}
+
+function buildPrompt(){
+  const c = state.client, s = state.service;
+  const design = document.getElementById("o-design").checked;
+  const eng    = document.getElementById("o-eng").checked;
+  const cites  = document.getElementById("o-cite").checked;
+  const interview = document.getElementById("o-interview").checked;
+  const deckLang = document.getElementById("deckLang").value;
+  const ref = refNumber();
+  const folder = c.folder || (c.id + "_" + c.en.replace(/[^A-Za-z0-9 ]/g,"").replace(/\s+/g,"_"));
+  const task = document.getElementById("task").value.trim();
+  const confLabel = {observed:"Observed pattern", possible:"Possible pattern", insufficient:"Insufficient evidence"}[s.conf];
+
+  const unconfirmed = [];
+  if(!c.cr) unconfirmed.push("CR number");
+  if(!c.nun) unconfirmed.push("National Unified Number");
+  if(!c.email) unconfirmed.push("Contact email");
+  if(!c.phone) unconfirmed.push("Contact phone");
+  if(!c.cname) unconfirmed.push("Contact name");
+
+  const P = [];
+
+  P.push("# PROPOSAL BUILD BRIEF");
+  P.push("Issued by the Taajeel / Start Saudi proposal desk. Reference " + ref + ".");
+  P.push("");
+  P.push("You are building a client-facing proposal deck and delivering it as a .pptx file.");
+  P.push("This brief is the complete input. Everything it does not state, you do not know.");
+  P.push("");
+
+  P.push("## 1. RULES THAT OVERRIDE EVERYTHING ELSE");
+  P.push("");
+  P.push("1. Never invent a price, a fee, a duration, a deadline or a government timeline. These are commercial");
+  P.push("   commitments. If this brief does not give you the number, you ask for it.");
+  P.push("2. A blank or absent field means UNCONFIRMED. It never means confirmed-empty. Do not fill the gap");
+  P.push("   with something plausible, and do not quietly drop the field from the deck.");
+  P.push("3. Anything marked NEEDS HUMAN INPUT below is not a prompt for your best guess. It is a question for the user.");
+  P.push("4. Text marked SOURCE TEXT is lifted verbatim from a past signed proposal. Reproduce it as-is.");
+  P.push("   Do not translate it, paraphrase it, modernise it or improve its tone. Its value is that it is the language");
+  P.push("   the firm has actually used and the client has actually signed.");
+  P.push("5. Evidence strength is stated for every claim. Weak evidence is not an invitation to fill the gap with");
+  P.push("   confident prose. Where evidence is weak, say less.");
+  P.push("6. Do not add slides that are not in the deck structure in section 7.");
+  P.push("");
+
+  if(interview){
+    P.push("## 2. INTERVIEW THE USER FIRST");
+    P.push("");
+    P.push("Before you generate a single slide, ask the user the open questions in section 6.");
+    P.push("");
+    P.push("- Ask them all at once, numbered, in one message. Do not drip-feed them one at a time.");
+    P.push("- For each question, state why you are asking and what you already know, so the user can answer fast.");
+    P.push("- Where a question offers a choice (conditional scope items), present the options rather than an open field.");
+    P.push("- Then stop and wait. Do not produce a draft while the questions are outstanding.");
+    P.push("- If the user answers only some, ask the rest again before building. Do not proceed on partial answers.");
+    P.push("- If the user tells you to skip a question, leave a visible placeholder on the slide reading");
+    P.push("  [TO BE CONFIRMED] rather than silently omitting it or inventing a value.");
+    P.push("- A correction from the user outranks anything in this brief, including a high-confidence pattern.");
+    P.push("  If the user says a reused passage is wrong, it is wrong. Note it back to them so it can be logged.");
+    P.push("");
+  }
+
+  P.push("## 3. CLIENT RECORD");
+  P.push("");
+  P.push("Client ID:            " + c.id);
+  P.push("Name (English):       " + (c.en || "(unconfirmed)"));
+  P.push("Name (Arabic):        " + (c.ar || "(unconfirmed)"));
+  P.push("Client type:          " + c.ctype);
+  P.push("Entity type:          " + c.etype);
+  P.push("Contact:              " + (c.cname || "(unconfirmed)"));
+  P.push("Contact email:        " + (c.email || "(unconfirmed)"));
+  P.push("Contact phone:        " + (c.phone || "(unconfirmed)"));
+  P.push("CR number:            " + (c.cr || "(unconfirmed)"));
+  P.push("National Unified No.: " + (c.nun || "(unconfirmed)"));
+  P.push("Client team:          " + ((c.team || "(unconfirmed)").split("\n").join(", ")));
+  P.push("Client folder:        " + folder + "/");
+  P.push("");
+  if(unconfirmed.length){
+    P.push("Unconfirmed fields, to raise with the user: " + unconfirmed.join(", ") + ".");
+    P.push("Entity type drives which government track applies, so treat it as load-bearing, not cosmetic.");
+    P.push("");
+  }
+
+  P.push("## 4. THE ENGAGEMENT");
+  P.push("");
+  P.push("Service:        " + s.en);
+  if(s.ar && s.ar !== s.en) P.push("Service (AR):   " + s.ar);
+  P.push("Deck language:  " + deckLang);
+  P.push("Reference no.:  " + ref + "   (format YYYY.MM.DD.ClientID, keyed to the proposal date, never today's date)");
+  P.push("VAT:            15 percent, applied to the service fee once the user supplies it. Show it as a separate line.");
+  P.push("");
+  P.push("What the client needs, as recorded by the proposal desk:");
+  P.push(task ? indent(task) : "  (not recorded — ask the user before building)");
+  P.push("");
+
+  P.push("## 5. EVIDENCE PACK");
+  P.push("");
+  P.push("Knowledge base verdict for this service: " + confLabel + ", based on " + s.n + " prior proposal(s).");
+  P.push("Section sources follow. Confidence figures are recomputed from all evidence, not incremented.");
+  P.push("");
+  SECTIONS.forEach(sec=>{
+    const info = s.sections[sec.k] || {s:"human"};
+    const label = {reuse:"REUSED FROM PAST PROPOSALS", template:"TEMPLATE", ai:"YOU DRAFT THIS", human:"NEEDS HUMAN INPUT"}[info.s];
+    P.push("### " + sec.en + " — " + label);
+    if(info.s === "reuse"){
+      P.push("Use the firm's existing wording for this section verbatim. SOURCE TEXT, do not rewrite.");
+      if(cites && info.cite) P.push("Evidence: " + info.cite);
+    } else if(info.s === "template"){
+      P.push("Fill the fixed skeleton. Slot in client name, service name and reference number. No new prose.");
+    } else if(info.s === "ai"){
+      P.push("Draft this yourself from the client record and the recorded need above. Stay factual, stay short,");
+      P.push("and do not promise anything not present elsewhere in this brief.");
+    } else {
+      P.push("Do not write this section. Ask the user. See section 6.");
+    }
+    P.push("");
+  });
+
+  P.push("## 6. OPEN QUESTIONS — ASK BEFORE YOU BUILD");
+  P.push("");
+  openQuestionsEN().forEach((q,i)=> P.push((i+1) + ". " + q));
+  P.push("");
+  P.push("Scope of work, as far as the evidence goes:");
+  P.push("");
+  P.push("CORE — carried in every prior proposal for this service, include unless the user removes it:");
+  P.push(list(s.core));
+  P.push("");
+  P.push("CONDITIONAL — appeared in some prior proposals. Each needs an explicit in-or-out decision from the user:");
+  P.push(list(s.conditional));
+  P.push("");
+  P.push("OPTIONAL — offered as add-ons. Propose, do not assume:");
+  P.push(list(s.optional));
+  P.push("");
+  if(!s.core.length){
+    P.push("There is not enough evidence to pre-fill any scope item for this service. Do not infer a scope from");
+    P.push("a single example or from general knowledge of Saudi company formation. Build the scope with the user.");
+    P.push("");
+  }
+
+  if(design){
+    P.push("## 7. DESIGN SYSTEM");
+    P.push("");
+    P.push("Slide size: 13.333 x 7.5 inches, 16:9.");
+    P.push("");
+    P.push("Colours:");
+    P.push("  Ink (backgrounds, headings)      #0C1C24");
+    P.push("  Cream (text on ink, cover field) #F4EDE1");
+    P.push("  Paper (light slide background)   #F7F4EE");
+    P.push("  Brass (accent, rules, callouts)  #A8801F");
+    P.push("  Green (confirmations, ticks)     #1A6B4F");
+    P.push("  Clay (attention, placeholders)   #A8481B");
+    P.push("  Slate (secondary text)           #5C6B72");
+    P.push("");
+    P.push("Type:");
+    P.push("  Latin   IBM Plex Sans. Headings 600, body 400.");
+    P.push("  Arabic  IBM Plex Sans Arabic, same weights. Never render Arabic in a Latin-only face.");
+    P.push("  Scale   Slide title 32pt / section heading 22pt / body 14pt / caption 11pt / table 12pt.");
+    P.push("  Line length under 80 characters. Do not centre body text.");
+    P.push("");
+    P.push("Layout:");
+    P.push("  Margins 0.6in. Baseline grid of 12 columns with a 0.2in gutter.");
+    P.push("  Cover: ink field, cream wordmark top-left, client name and reference number bottom-left, no stock imagery.");
+    P.push("  Content slides: paper background, ink title, a 2pt brass rule under the title, body in a single column");
+    P.push("  unless the content is a comparison.");
+    P.push("  Tables: ink header row with cream text, hairline #DFD8CB rules, no vertical rules, no zebra fill.");
+    P.push("  Scope slides: three labelled groups (core, conditional, optional). Conditional and optional items");
+    P.push("  carry a visible marker so the client can see what is a decision and what is included.");
+    P.push("");
+    P.push("Voice: plain, declarative, specific. State who owns each step and how long the government takes,");
+    P.push("separately from how long the firm takes. No superlatives, no filler adjectives, no exclamation marks.");
+    P.push("");
+    if(deckLang !== "English"){
+      P.push("Right-to-left: for Arabic slides set paragraph direction RTL, align text right, mirror the column order,");
+      P.push("and keep numerals and Latin proper nouns LTR inside the run. Do not mirror the logo.");
+      P.push("");
+    }
+  }
+
+  P.push("## " + (design ? "8" : "7") + ". DECK STRUCTURE");
+  P.push("");
+  SECTIONS.forEach((sec,i)=> P.push("Slide " + (i+1) + ". " + sec.en));
+  P.push("");
+  P.push("One section may run to more than one slide where the content needs it. Keep the order.");
+  P.push("");
+
+  if(eng){
+    P.push("## " + (design ? "9" : "8") + ". BUILDING THE .PPTX");
+    P.push("");
+    P.push("Start from the firm's branded template file rather than recreating the design. Patch content into it.");
+    P.push("");
+    P.push("Two failure modes that have bitten this pipeline before, both silent:");
+    P.push("");
+    P.push("1. Replace text at the PARAGRAPH level, not the run level. PowerPoint routinely splits one visual line");
+    P.push("   across several runs, so a run-level find-and-replace will match nothing, or will match half a sentence");
+    P.push("   and leave the rest of the old client's text on the slide.");
+    P.push("2. When swapping slides with a python-pptx style API, ADD the new slides BEFORE deleting the old ones.");
+    P.push("   Delete-then-add produces a file the library reports as saved successfully and that real PowerPoint");
+    P.push("   then refuses to open. Verify by reopening the saved file before you hand it over.");
+    P.push("");
+    P.push("Any diagram slide in the template was drawn for the service it came from. If it does not apply to");
+    P.push(" " + s.en + ", replace it with a plain summary rather than leaving a diagram that describes a different job.");
+    P.push("");
+    P.push("Save as: " + folder + "/" + ref + ".pptx");
+    P.push("");
+  }
+
+  P.push("## " + (design && eng ? "10" : (design || eng ? "9" : "8")) + ". BEFORE YOU HAND IT BACK");
+  P.push("");
+  P.push("Give the user a short list covering, at minimum:");
+  P.push("- every question they did not answer, and where the placeholder sits in the deck");
+  P.push("- every section you drafted yourself rather than reused, so a human reads those first");
+  P.push("- the cover logo, which needs a manual swap");
+  P.push("- any slide you replaced or dropped, and why");
+  P.push("");
+  P.push("Do not claim the deck is final. It goes back to the proposal desk for pricing and approval.");
+
+  return P.join("\n");
+}
+
+function indent(s){ return s.split("\n").map(l=>"  "+l).join("\n"); }
+
+// English-only question list for the brief body (brief is always English)
+function openQuestionsEN(){
+  const c = state.client, s = state.service, qs = [];
+  qs.push("Fees. What is the service fee, in what currency, and on what payment schedule? "+
+          "No figure for this is derivable from past proposals and none may be estimated.");
+  if(s.sections.timeframe.s === "human")
+    qs.push("Time frame. There is not enough evidence to promise a duration for this service. "+
+            "What timeline should the deck commit to, and which parts of it are the government's rather than the firm's?");
+  if(s.conditional.length)
+    qs.push("Conditional scope. For each of the "+s.conditional.length+" conditional items listed below, is it in or out for this client?");
+  if(!s.core.length)
+    qs.push("Scope of work. No scope items are confirmed for this service. What should the deck commit to?");
+  if(c && !c.cr) qs.push("CR number is unconfirmed in the registry. Does the client have one yet, or is this a pre-incorporation engagement?");
+  if(c && !c.nun) qs.push("National Unified Number is unconfirmed. Should it appear on the cover?");
+  if(c && !c.email) qs.push("No contact email on record. Who is the proposal addressed to?");
+  qs.push("The cover template carries a previous client's logo as a baked-in image. Supply the client logo, or confirm the cover ships without one.");
+  qs.push("Anything in the reused sections that is out of date or does not apply to this client. Flag it and it gets logged as a correction.");
+  return qs;
+}
+
+function renderPrompt(){
+  if(!state.service || !state.client) return;
+  const txt = buildPrompt();
+  document.getElementById("promptOut").textContent = txt;
+  const w = txt.trim().split(/\s+/).length;
+  document.getElementById("promptStats").textContent = t("words").replace("{w}", w).replace("{c}", txt.length);
+  renderLedger();
+}
+
+function copyPrompt(){
+  const txt = document.getElementById("promptOut").textContent;
+  navigator.clipboard.writeText(txt).then(()=>toast(t("copied")),()=>{
+    const r = document.createRange(); r.selectNode(document.getElementById("promptOut"));
+    window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+    document.execCommand("copy"); toast(t("copied"));
+  });
+}
+function downloadPrompt(){
+  const txt = document.getElementById("promptOut").textContent;
+  const blob = new Blob([txt], {type:"text/markdown"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "brief-" + refNumber() + ".md";
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+/* =========================================================
+   7. BOOT
+   ========================================================= */
+setLang("en");
+go(1);
+</script>

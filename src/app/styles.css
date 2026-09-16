@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-cream-200 text-navy-900 text-base antialiased;
+  }
+  /* Dense internal tool: no chunky focus halos, but never invisible. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-navy-500 ring-offset-1 ring-offset-white;
+  }
+}
+
+@layer components {
+  .field-grid {
+    @apply grid grid-cols-1 gap-x-6 gap-y-3 md:grid-cols-2;
+  }
+}

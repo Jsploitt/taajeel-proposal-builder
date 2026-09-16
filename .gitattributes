@@ -1,0 +1,10 @@
+# Normalise line endings in the repo; check out native on each machine.
+* text=auto
+
+# Binary assets git must never try to diff or convert.
+*.pptx  binary
+*.potx  binary
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary

@@ -1,0 +1,38 @@
+# --- dependencies and build output
+node_modules/
+dist/
+
+# --- generated decks, renders and verification artefacts
+build/
+
+# --- real client documents
+# Three signed client proposals (FlyAkeed, HAVENSTONE, HCP). Real names, fees,
+# contacts and registration numbers. They stay on disk for reference and are
+# never committed -- leaking a previous client's identity is the exact failure
+# this project exists to remove.
+proposal/
+
+# --- large template binaries that nothing in the build needs
+# taajeel_template.pptx IS tracked: the compiler cannot build a deck without it.
+template/taajeel_master.pptx
+template/taajeel_template.pdf
+template/reference_renders/
+
+# --- Office lock files (these also crash the Vite watcher)
+~$*
+*.tmp
+
+# --- editor / OS noise
+.DS_Store
+Thumbs.db
+*.swp
+__pycache__/
+*.pyc
+
+# --- local secrets (none today; keep it that way)
+.env
+.env.*
+!.env.example
+
+# --- per-machine Claude Code state (settings.json is shared, .local is not)
+.claude/settings.local.json

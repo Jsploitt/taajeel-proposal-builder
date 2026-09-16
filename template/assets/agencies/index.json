@@ -1,0 +1,106 @@
+{
+ "aamaly": {
+  "label": "Aamaly",
+  "file": "aamaly.png",
+  "px": [
+   200,
+   200
+  ],
+  "sha": "ad9e19fb"
+ },
+ "gosi": {
+  "label": "General Organization for Social Insurance",
+  "file": "gosi.png",
+  "px": [
+   2013,
+   1348
+  ],
+  "sha": "d0f4746a"
+ },
+ "hrsd": {
+  "label": "Human Resources and Social Development",
+  "file": "hrsd.png",
+  "px": [
+   536,
+   228
+  ],
+  "sha": "fe45757b"
+ },
+ "moc": {
+  "label": "Ministry of Commerce",
+  "file": "moc.png",
+  "px": [
+   2560,
+   960
+  ],
+  "sha": "8b28c258"
+ },
+ "muqeem": {
+  "label": "Muqeem",
+  "file": "muqeem.png",
+  "px": [
+   400,
+   236
+  ],
+  "sha": "30f4e74e"
+ },
+ "national_address": {
+  "label": "National Address",
+  "file": "national_address.png",
+  "px": [
+   418,
+   487
+  ],
+  "sha": "95846817"
+ },
+ "notary": {
+  "label": "Notary / Ministry of Justice",
+  "file": "notary.png",
+  "px": [
+   189,
+   127
+  ],
+  "sha": "644c9421"
+ },
+ "qiwa": {
+  "label": "QIWA",
+  "file": "qiwa.png",
+  "px": [
+   206,
+   183
+  ],
+  "sha": "817bf510"
+ },
+ "riyadh_chamber": {
+  "label": "Riyadh Chamber",
+  "file": "riyadh_chamber.png",
+  "px": [
+   300,
+   112
+  ],
+  "sha": "18f8f509"
+ },
+ "sbc": {
+  "label": "Saudi Business Center",
+  "file": "sbc.png",
+  "px": [
+   2023,
+   485
+  ],
+  "sha": "9ea31b12"
+ },
+ "zatca": {
+  "label": "Zakat, Tax and Customs Authority",
+  "file": "zatca.png",
+  "px": [
+   1200,
+   741
+  ],
+  "sha": "5dbf487a"
+ },
+ "misa": {
+  "label": "Ministry of Investment",
+  "file": null,
+  "note": "not extracted -- supply artwork"
+ }
+}

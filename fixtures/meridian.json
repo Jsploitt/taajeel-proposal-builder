@@ -1,0 +1,435 @@
+{
+  "_comment": "Synthetic client. Entirely fictional: names invented, .example TLD is IANA-reserved for documentation so nothing here can resolve to a real domain. Mirrors the shape of P1 (Havenstone, foreign company formation) so the output can be compared against template/reference_renders/.",
+  "client": {
+    "legalName": "MERIDIAN LOGISTICS CONSULTING W.L.L",
+    "displayName": "MERIDIAN Logistics Consulting W.L.L",
+    "legalForm": "limited liability company",
+    "country": "Kingdom of Bahrain",
+    "countryCode": "BH",
+    "registrationLabel": "Commercial Registration No.",
+    "registrationNumber": "214883",
+    "incorporatedOn": "18 March 2023",
+    "capital": "BHD 2,500",
+    "activity": "freight forwarding and logistics consultancy",
+    "address": "Building 122, Road 3801, Block 338, Manama, Kingdom of Bahrain.",
+    "attention": "Ms. Dana Farouk",
+    "mobile": "+973 3311 4402",
+    "email": "d.farouk@meridianlogistics.example",
+    "web": "www.meridianlogistics.example",
+    "logoPath": "fixtures/assets/meridian_logo.png"
+  },
+  "engagement": {
+    "subject": "Proposal for Professional Services of Foreign Company Formation in Saudi Arabia",
+    "letterDate": "15 March 2026",
+    "referenceNumber": "0031.03.15.0742",
+    "type": "project",
+    "serviceDescription": "professional services of foreign company formation in Saudi Arabia"
+  },
+  "aboutClient": [
+    {
+      "style": "body",
+      "segments": [
+        {
+          "text": "MERIDIAN LOGISTICS CONSULTING W.L.L",
+          "bold": true
+        },
+        {
+          "text": " (“the Client”) is a Bahraini limited liability company registered in the Kingdom of Bahrain under Commercial Registration No. "
+        },
+        {
+          "text": "214883",
+          "bold": true
+        },
+        {
+          "text": ". The company was incorporated on "
+        },
+        {
+          "text": "18 March 2023",
+          "bold": true
+        },
+        {
+          "text": " with an authorized, issued, and paid-up capital of "
+        },
+        {
+          "text": "BHD 2,500",
+          "bold": true
+        },
+        {
+          "text": ", and operates through an active commercial registration in the field of "
+        },
+        {
+          "text": "freight forwarding and logistics consultancy",
+          "bold": true
+        },
+        {
+          "text": ". "
+        }
+      ]
+    },
+    {
+      "style": "body",
+      "segments": [
+        {
+          "text": "The Client is owned by "
+        },
+        {
+          "text": "Ms. Dana Farouk",
+          "bold": true
+        },
+        {
+          "text": ", a Bahraini national holding "
+        },
+        {
+          "text": "60%",
+          "bold": true
+        },
+        {
+          "text": " of the company’s shares, and "
+        },
+        {
+          "text": "Mr. Tomas Ravel",
+          "bold": true
+        },
+        {
+          "text": ", a Portuguese national holding the remaining "
+        },
+        {
+          "text": "40%",
+          "bold": true
+        },
+        {
+          "text": ". Both partners also serve as directors and authorized signatories of the company. "
+        }
+      ]
+    },
+    {
+      "style": "body",
+      "segments": [
+        {
+          "text": "As part of its regional growth strategy, the Client intends to expand its logistics advisory operations into the Kingdom of Saudi Arabia by establishing a foreign-owned consulting company capable of serving local and regional clients and conducting its activities in accordance with the applicable investment, commercial, and regulatory requirements."
+        }
+      ]
+    },
+    {
+      "style": "body",
+      "segments": [
+        {
+          "text": "Accordingly, "
+        },
+        {
+          "text": "the Client is seeking from Taajeel | ",
+          "bold": true
+        },
+        {
+          "text": "تعجيل",
+          "bold": true
+        },
+        {
+          "text": " professional advisory and implementation services to support the establishment of the proposed consulting company in the Kingdom of Saudi Arabia, including obtaining the required investment registration, completing the incorporation procedures, and securing the necessary regulatory approvals to commence operations (the “Mission” / the “Assignment”)."
+        }
+      ]
+    },
+    {
+      "style": "subhead",
+      "segments": [
+        {
+          "text": "The Investment requirements:"
+        }
+      ]
+    },
+    {
+      "style": "small",
+      "segments": [
+        {
+          "text": "The investor will establish a foreign “LLC” company, and here it is required to obtain an investment project license from the Ministry of Investment “MISA”. All the activities under services are subject to the requirements for service licensing, which are the following:"
+        }
+      ]
+    },
+    {
+      "style": "small",
+      "segments": [
+        {
+          "text": "There are no minimum capital requirements."
+        }
+      ]
+    },
+    {
+      "style": "small",
+      "segments": [
+        {
+          "text": "There is no minimum commitment to investing requirement during the first five years."
+        }
+      ]
+    },
+    {
+      "style": "subhead",
+      "segments": [
+        {
+          "text": "But the client should provide from his client “the Project” this following documents:"
+        }
+      ]
+    },
+    {
+      "style": "small",
+      "segments": [
+        {
+          "text": "Article of Association (should not be less than one year old, and the company must be registered outside of KSA)."
+        }
+      ]
+    },
+    {
+      "style": "small",
+      "segments": [
+        {
+          "text": "Trade License for the Company."
+        }
+      ]
+    },
+    {
+      "style": "small",
+      "segments": [
+        {
+          "text": "Financial Statements of the last year 2025."
+        }
+      ]
+    },
+    {
+      "style": "small",
+      "segments": [
+        {
+          "text": "PoA issued by certified public notary on the legal entity country."
+        }
+      ]
+    },
+    {
+      "style": "emphasis",
+      "segments": [
+        {
+          "text": "All these documents must be certified from The Ministry of Foreign Affairs and then the Saudi Embassy in the country of origin."
+        }
+      ]
+    }
+  ],
+  "scope": [
+    {
+      "title": "Setup the Company",
+      "intro": "According to Assignment to Setup Foreign Company in Saudi Arabia, So the scope of work is delivered into the following sixteen steps:",
+      "steps": [
+        {
+          "label": "Workshop with Client",
+          "durationDays": 1
+        },
+        {
+          "label": "Applying for the MISA License",
+          "durationDays": 5,
+          "agency": "misa"
+        },
+        {
+          "label": "Submit the AOA in platform SBC",
+          "durationDays": 5,
+          "agency": "sbc"
+        },
+        {
+          "label": "Get approval from MOC",
+          "durationDays": 2,
+          "agency": "moc"
+        },
+        {
+          "label": "Company name reservation",
+          "durationDays": 1,
+          "agency": "moc"
+        },
+        {
+          "label": "Pay the fees",
+          "durationDays": 1
+        },
+        {
+          "label": "Notarizing the Articles of Association",
+          "durationDays": 1,
+          "agency": "notary"
+        },
+        {
+          "label": "Advertising the Articles of Association",
+          "durationDays": 3,
+          "agency": "aamaly"
+        },
+        {
+          "label": "Receive a Commercial Register",
+          "durationDays": 3
+        },
+        {
+          "label": "Registration in QIWA Platform",
+          "durationDays": 1,
+          "agency": "qiwa"
+        },
+        {
+          "label": "Open company file in HRSD",
+          "durationDays": 1,
+          "agency": "hrsd"
+        },
+        {
+          "label": "Open file for company to Issuing the Certificate of GOSI",
+          "durationDays": 1,
+          "agency": "gosi"
+        },
+        {
+          "label": "Issuing a TAX Certificate",
+          "durationDays": 1,
+          "agency": "zatca"
+        },
+        {
+          "label": "Issuing a VAT Certificate",
+          "durationDays": 2,
+          "agency": "zatca"
+        },
+        {
+          "label": "Registration of the company address on the national address platform",
+          "durationDays": 3,
+          "agency": "national_address"
+        },
+        {
+          "label": "Registration in Muqeem platform",
+          "durationDays": 3,
+          "agency": "muqeem"
+        }
+      ]
+    }
+  ],
+  "timeFrame": {
+    "show": true,
+    "steps": [
+      {
+        "label": "Workshop with Client",
+        "durationDays": 1
+      },
+      {
+        "label": "Apply for MISA License",
+        "durationDays": 5
+      },
+      {
+        "label": "Submit AOA",
+        "durationDays": 5
+      },
+      {
+        "label": "Get Approval",
+        "durationDays": 2
+      },
+      {
+        "label": "Notarize AOA",
+        "durationDays": 1
+      },
+      {
+        "label": "Pay Government Fees",
+        "durationDays": 1
+      },
+      {
+        "label": "Advertise AOA",
+        "durationDays": 1
+      },
+      {
+        "label": "Receive Commercial Register",
+        "durationDays": 3
+      },
+      {
+        "label": "Ratify Signatures",
+        "durationDays": 3
+      },
+      {
+        "label": "Zakat, Tax and Customs Authority",
+        "durationDays": 1
+      },
+      {
+        "label": "National address",
+        "durationDays": 1
+      },
+      {
+        "label": "Human Resources and Social Development",
+        "durationDays": 1
+      },
+      {
+        "label": "QIWA",
+        "durationDays": 1
+      },
+      {
+        "label": "General Organization for Social Insurance",
+        "durationDays": 2
+      },
+      {
+        "label": "MUDAD",
+        "durationDays": 3
+      },
+      {
+        "label": "Muqeem",
+        "durationDays": 3
+      }
+    ]
+  },
+  "additional": {
+    "show": true,
+    "blocks": [
+      {
+        "title": "Open bank Account",
+        "steps": [
+          "Bank selection shortlist",
+          "Document pack preparation",
+          "Branch appointment scheduling"
+        ]
+      },
+      {
+        "title": "Address and office services",
+        "steps": [
+          "National address registration",
+          "Office subscription"
+        ]
+      }
+    ]
+  },
+  "nonCovered": {
+    "show": false,
+    "items": []
+  },
+  "fees": {
+    "headline": "35,000",
+    "currency": "SAR",
+    "notes": [
+      "Government Fees are not included in Taajeel fees, Government Fees page attached in separate slide.",
+      "Payments paid within five days of the maturity date."
+    ],
+    "paymentSplit": [
+      {
+        "pct": 50,
+        "when": "Advance payment when signing the approval of the proposal."
+      },
+      {
+        "pct": 35,
+        "when": "When we have approval from MISA."
+      },
+      {
+        "pct": 15,
+        "when": "When we have a Commercial Register."
+      }
+    ]
+  },
+  "rateCard": {
+    "show": false,
+    "items": []
+  },
+  "govFees": {
+    "show": true,
+    "rows": [
+      {
+        "label": "Setup foreign company",
+        "amount": "1,775",
+        "note": "for the first year, then 2,165 for the renewal fees."
+      },
+      {
+        "label": "Subscription fees QIWA platform for a year",
+        "amount": "1,265"
+      },
+      {
+        "label": "Muqeem platform subscription and points",
+        "amount": "1,840"
+      }
+    ]
+  }
+}
